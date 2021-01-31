@@ -28,7 +28,7 @@ interface IAccount {
   updatedOn: Date
 }
 
-interface IUser {
+export interface IUser {
   account: IAccount
   balance: IBalance | null
   createdAt: Date

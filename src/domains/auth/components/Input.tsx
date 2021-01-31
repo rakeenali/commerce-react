@@ -27,7 +27,7 @@ function Input({
   helperText = '',
   errorText = '',
 }: Props): JSX.Element {
-  console.log('errorText', errorText)
+  //
   return (
     <Box width="94%" my="7">
       <FormControl id={name}>

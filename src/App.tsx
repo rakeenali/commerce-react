@@ -1,14 +1,30 @@
-import Chakra from './Chakra'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import Router from './Router'
+import { Heading } from '@chakra-ui/react'
 
-function App() {
+import useAuth from './hooks/useAuth'
+
+function App(): JSX.Element {
+  const auth = useAuth()
+
+  useEffect(() => {
+    auth.query.refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const render = () => {
+    if (auth.query.isFetching) {
+      return <Heading>Loading</Heading>
+    }
+
+    return <></>
+  }
+
   return (
-    <Chakra>
-      <Router>
-        <Navbar />
-      </Router>
-    </Chakra>
+    <>
+      <Navbar />
+      {render()}
+    </>
   )
 }
 

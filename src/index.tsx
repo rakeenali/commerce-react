@@ -2,10 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+import Router from './Router'
+import Chakra from './Chakra'
+
+const client = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Chakra>
+      <QueryClientProvider client={client}>
+        <Router>
+          <App />
+        </Router>
+      </QueryClientProvider>
+    </Chakra>
   </React.StrictMode>,
   document.getElementById('root')
 )
