@@ -1,11 +1,51 @@
 import { Link } from 'react-router-dom'
-import { Flex, Box, Heading, Spacer, Center, Button } from '@chakra-ui/react'
+import {
+  Flex,
+  Box,
+  Heading,
+  Spacer,
+  Center,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from '@chakra-ui/react'
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 import { useUser } from '../stores'
+import React from 'react'
 
 function Navbar() {
   const user = useUser((state) => state.user)
   const loading = useUser((state) => state.loading)
+
+  const renderMenu = (): JSX.Element => {
+    return (
+      <Center mx={2}>
+        <Box>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              variant="ghost"
+              colorScheme="white"
+            >
+              Actions
+            </MenuButton>
+            <MenuList>
+              <MenuItem as={Link} to="/accounts" color="shadow.900">
+                {user?.username}
+              </MenuItem>
+              <MenuItem as={Button} variant="ghost" color="shadow.900">
+                Logout
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
+      </Center>
+    )
+  }
 
   const renderNav = () => {
     if (loading) {
@@ -21,6 +61,7 @@ function Navbar() {
                 Tags
               </Button>
             </Box>
+            {renderMenu()}
           </Center>
         </>
       )

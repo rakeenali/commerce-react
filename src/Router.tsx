@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Auth from './domains/auth/routes'
 import Home from './domains/home'
 import Tags from './domains/tags/routes'
+import Account from './domains/account/Account'
+
 import { useUser } from './stores'
 
 type Props = {
@@ -25,6 +27,9 @@ function Router({ children }: Props): JSX.Element {
         <Switch>
           <Route path="/tags">
             <Tags />
+          </Route>
+          <Route path="/accounts" exact>
+            <Account />
           </Route>
           <Route path="/" exact>
             <Home />

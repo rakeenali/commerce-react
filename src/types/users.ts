@@ -13,6 +13,10 @@ export interface IRespAuthenticate extends okResponse {
   data: IUser | null
 }
 
+export interface IRespAccount extends okResponse {
+  data: IAccount | null
+}
+
 // INTERFACES
 
 interface IBalance {
@@ -21,7 +25,7 @@ interface IBalance {
   updatedOn: Date
 }
 
-interface IAccount {
+export interface IAccount {
   firstName: string
   id: number
   lastName: string
