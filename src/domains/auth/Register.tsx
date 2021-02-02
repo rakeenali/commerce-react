@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 
 import Input from './components/Input'
 import Form from './components/Form'
+import { useSignup } from '../../hooks'
 
 type IFormInput = {
   firstName: string
@@ -32,7 +33,16 @@ const schema = Yup.object().shape({
 })
 
 function Register() {
-  const onSubmit = (values: IFormInput) => {}
+  const { mutate, mutation, getError } = useSignup()
+
+  const onSubmit = (values: IFormInput) => {
+    mutate({
+      first_name: values.firstName,
+      last_name: values.lastName,
+      password: values.password,
+      username: values.username,
+    })
+  }
 
   const formik = useFormik<IFormInput>({
     initialValues: {
@@ -46,26 +56,32 @@ function Register() {
     onSubmit: onSubmit,
   })
 
+  const heading =
+    (mutation.isError && getError().message) || 'Register as a new user'
+
   return (
     <Center my={10}>
-      <Form heading="Register as a new user" onSubmit={formik.handleSubmit}>
+      <Form heading={heading} onSubmit={formik.handleSubmit}>
         <Input
           name="firstName"
           heading="First Name"
           onChange={formik.handleChange}
           errorText={formik.errors.firstName}
+          disabled={mutation.isLoading}
         />
         <Input
           name="lastName"
           heading="Last Name"
           onChange={formik.handleChange}
           errorText={formik.errors.lastName}
+          disabled={mutation.isLoading}
         />
         <Input
           name="username"
           heading="User Name"
           onChange={formik.handleChange}
           errorText={formik.errors.username}
+          disabled={mutation.isLoading}
         />
         <Input
           name="password"
@@ -73,9 +89,15 @@ function Register() {
           type="password"
           onChange={formik.handleChange}
           errorText={formik.errors.password}
+          disabled={mutation.isLoading}
         />
         <Box width="94%" my="7">
-          <Button colorScheme="light" type="submit" width="100%">
+          <Button
+            colorScheme="light"
+            type="submit"
+            width="100%"
+            isLoading={mutation.isLoading}
+          >
             Submit
           </Button>
         </Box>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 import useMutation from './useMutation'
-import { useUser } from '../stores'
+import { useUser, useToast } from '../stores'
 import { IRespLoginUser } from '../types'
 
 type Variables = {
@@ -15,6 +15,7 @@ export function useLogin() {
   const history = useHistory()
   const setToken = useUser((state) => state.setToken)
   const setUser = useUser((state) => state.setUser)
+  const { showToast } = useToast()
 
   const login = useMutation<IRespLoginUser, Variables>((data) =>
     axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, data)
@@ -28,6 +29,11 @@ export function useLogin() {
         history.push('/', { replace: true })
         setUser(data.user)
         setToken(data.token)
+        const account = data.user.account
+        showToast(
+          'Logged in successfully',
+          `Welcome ${account.firstName} ${account.lastName}`
+        )
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,5 +46,3 @@ export function useLogin() {
     getError: login.getError,
   }
 }
-
-export default useLogin

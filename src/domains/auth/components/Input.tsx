@@ -15,6 +15,7 @@ type Props = {
   helperText?: string
   errorText?: string
   type?: string
+  disabled?: boolean
 }
 
 function Input({
@@ -26,6 +27,7 @@ function Input({
   type = 'text',
   helperText = '',
   errorText = '',
+  disabled = false,
 }: Props): JSX.Element {
   //
   return (
@@ -42,6 +44,7 @@ function Input({
           type={type}
           name={name}
           onChange={onChange}
+          disabled={disabled}
         />
         {helperText && (
           <FormHelperText color="shadow.700">{helperText}</FormHelperText>
