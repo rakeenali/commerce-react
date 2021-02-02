@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
-import { Heading } from '@chakra-ui/react'
 
-import useAuth from './hooks/useAuth'
+import { useAuth } from './hooks'
 
 function App(): JSX.Element {
   const auth = useAuth()
@@ -12,18 +11,9 @@ function App(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const render = () => {
-    if (auth.query.isFetching) {
-      return <Heading>Loading</Heading>
-    }
-
-    return <></>
-  }
-
   return (
     <>
       <Navbar />
-      {render()}
     </>
   )
 }

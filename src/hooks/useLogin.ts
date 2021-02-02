@@ -11,7 +11,7 @@ type Variables = {
   password: string
 }
 
-function useLogin() {
+export function useLogin() {
   const history = useHistory()
   const setToken = useUser((state) => state.setToken)
   const setUser = useUser((state) => state.setUser)

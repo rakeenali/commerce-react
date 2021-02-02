@@ -13,7 +13,17 @@ function Navbar() {
     }
 
     if (user) {
-      return <></>
+      return (
+        <>
+          <Center mx={2}>
+            <Box>
+              <Button variant="ghost" colorScheme="white" as={Link} to="/tags">
+                Tags
+              </Button>
+            </Box>
+          </Center>
+        </>
+      )
     } else {
       return (
         <>

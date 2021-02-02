@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Input from './components/Input'
 import Form from './components/Form'
 
-import useLogin from '../../hooks/useLogin'
+import { useLogin } from '../../hooks'
 
 type IFormInput = {
   username: string

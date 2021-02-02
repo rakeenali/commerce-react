@@ -6,7 +6,7 @@ import useQuery from './useQuery'
 import { IRespAuthenticate } from '../types'
 import { useUser } from '../stores'
 
-function useAuth() {
+export function useAuth() {
   const history = useHistory()
   const setUser = useUser((state) => state.setUser)
   const setToken = useUser((state) => state.setToken)
@@ -44,5 +44,3 @@ function useAuth() {
 
   return { query: auth.query, getError: auth.getError, getData: auth.getData }
 }
-
-export default useAuth
