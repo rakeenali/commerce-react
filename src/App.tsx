@@ -33,7 +33,6 @@ function App(): JSX.Element {
     if (toast.show) {
       makeToast()
     }
-    console.log(toast)
   }, [toast.show])
 
   return (

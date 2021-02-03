@@ -31,10 +31,7 @@ export function useAuth() {
     if (status === 'error') {
       history.push('/auth/login', { replace: true })
       setLoading(false)
-    } else if (status === 'idle') {
-      history.push('/', { replace: true })
     } else if (status === 'success') {
-      history.push('/', { replace: true })
       setUser(auth.getData().data!)
       setToken(token!)
       setLoading(false)

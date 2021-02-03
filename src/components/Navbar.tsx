@@ -98,7 +98,7 @@ function Navbar() {
   }
 
   return (
-    <Flex p="2" bg="white.300">
+    <Flex p="2" bg="white.300" height="60px">
       <Box p="2">
         <Heading size="md" color="dark.800">
           Commerce
