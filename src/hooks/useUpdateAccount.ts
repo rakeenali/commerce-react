@@ -25,8 +25,8 @@ export function useUpdateAccount() {
 
   useEffect(() => {
     if (update.mutation.isSuccess) {
-      const { data, message } = update.getData()
-      if (data) {
+      if (update.data) {
+        const { data, message } = update.data
         setAccount(data)
         showToast('Account update successfully', message)
       }
@@ -34,10 +34,5 @@ export function useUpdateAccount() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update.mutation.isSuccess])
 
-  return {
-    mutation: update.mutation,
-    mutate: update.mutate,
-    getData: update.getData,
-    getError: update.getError,
-  }
+  return update
 }

@@ -6,15 +6,15 @@ export interface IRespCreateUser extends okResponse {
 }
 
 export interface IRespLoginUser extends okResponse {
-  data: ILogin | null
+  data: ILogin
 }
 
 export interface IRespAuthenticate extends okResponse {
-  data: IUser | null
+  data: IUser
 }
 
 export interface IRespAccount extends okResponse {
-  data: IAccount | null
+  data: IAccount
 }
 
 // INTERFACES

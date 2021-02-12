@@ -20,9 +20,13 @@ export default function Edit({ isOpen, onUpdate, tag }: Props): JSX.Element {
     }
   }, [tag])
 
+  const onChange = (e) => {
+    setName(e.target.value)
+  }
+
   return (
     <SlideFade in={isOpen} offsetY="25px">
-      <HStack w="100%" h="40px" mb="5">
+      <HStack w="100%" h="40px">
         <Box h="100%" width="300px" ml="auto">
           <Input
             width="100%"
@@ -30,6 +34,7 @@ export default function Edit({ isOpen, onUpdate, tag }: Props): JSX.Element {
             bg="light.800"
             px="3"
             value={name}
+            onChange={onChange}
           />
         </Box>
         <Box h="100%" width="110px">

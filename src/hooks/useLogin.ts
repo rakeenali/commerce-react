@@ -23,8 +23,8 @@ export function useLogin() {
 
   useEffect(() => {
     if (login.mutation.isSuccess) {
-      const { data } = login.getData()
-      if (data) {
+      if (login.data) {
+        const { data } = login.data
         localStorage.setItem('token', data.token)
         history.push('/', { replace: true })
         setUser(data.user)
@@ -39,10 +39,5 @@ export function useLogin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login.mutation.isSuccess])
 
-  return {
-    mutation: login.mutation,
-    mutate: login.mutate,
-    getData: login.getData,
-    getError: login.getError,
-  }
+  return login
 }

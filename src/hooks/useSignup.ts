@@ -24,8 +24,8 @@ export function useSignup() {
 
   useEffect(() => {
     if (register.mutation.isSuccess) {
-      const { data, message } = register.getData()
-      if (data) {
+      if (register.data) {
+        const { message } = register.data
         history.push('/auth/login', { replace: true })
         showToast('Registered Successfully', message)
       }
@@ -33,10 +33,5 @@ export function useSignup() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [register.mutation.isSuccess])
 
-  return {
-    mutation: register.mutation,
-    mutate: register.mutate,
-    getData: register.getData,
-    getError: register.getError,
-  }
+  return register
 }

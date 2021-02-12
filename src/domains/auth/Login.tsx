@@ -24,7 +24,7 @@ const schema = Yup.object().shape({
 })
 
 function Login() {
-  const { mutation, getError, mutate } = useLogin()
+  const { mutate, error } = useLogin()
 
   const formik = useFormik<IFormInput>({
     initialValues: {
@@ -36,7 +36,7 @@ function Login() {
     onSubmit: mutate,
   })
 
-  const loginHeading = (mutation.isError && getError().message) || 'Login'
+  const loginHeading = error || 'Login'
 
   return (
     <Center my={10}>

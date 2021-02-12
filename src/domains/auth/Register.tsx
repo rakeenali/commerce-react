@@ -33,7 +33,7 @@ const schema = Yup.object().shape({
 })
 
 function Register() {
-  const { mutate, mutation, getError } = useSignup()
+  const { mutate, error, mutation } = useSignup()
 
   const onSubmit = (values: IFormInput) => {
     mutate({
@@ -56,8 +56,7 @@ function Register() {
     onSubmit: onSubmit,
   })
 
-  const heading =
-    (mutation.isError && getError().message) || 'Register as a new user'
+  const heading = error || 'Register as a new user'
 
   return (
     <Center my={10}>

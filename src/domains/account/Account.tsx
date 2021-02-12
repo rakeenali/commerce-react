@@ -19,7 +19,7 @@ interface IForm {
 }
 
 export default function Account() {
-  //
+  const updateAccount = useUpdateAccount()
   const account = useUser((state) => state.user?.account)
   const editBtn = useDisclosure()
   const formik = useFormik<IForm>({
@@ -34,7 +34,6 @@ export default function Account() {
       })
     },
   })
-  const updateAccount = useUpdateAccount()
 
   const renderCenterBox = (
     label: string,

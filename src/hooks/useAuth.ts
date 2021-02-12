@@ -32,12 +32,14 @@ export function useAuth() {
       history.push('/auth/login', { replace: true })
       setLoading(false)
     } else if (status === 'success') {
-      setUser(auth.getData().data!)
-      setToken(token!)
-      setLoading(false)
+      if (auth.data) {
+        setUser(auth.data.data)
+        setToken(token!)
+        setLoading(false)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.query.status, history])
 
-  return { query: auth.query, getError: auth.getError, getData: auth.getData }
+  return auth
 }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   useQuery as rquUseQuery,
   UseQueryOptions,
@@ -10,8 +11,9 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { IErrorResp } from '../types'
 
 interface IUseQuery<Response> {
-  getData: () => Response
-  getError: () => IErrorResp
+  getError: () => IErrorResp | undefined
+  error: string
+  data: Response | null
   query: QueryObserverResult<AxiosResponse<Response>, AxiosError<IErrorResp>>
 }
 
@@ -30,15 +32,39 @@ function useQuery<Response>(
     options
   )
 
-  const getError = (): IErrorResp => {
-    return query.error?.response?.data!
+  const [error, setError] = useState<string>('')
+  const [respData, setRespData] = useState<Response | null>(null)
+
+  const getError = (): IErrorResp | undefined => {
+    return query.error?.response?.data
   }
 
-  const getData = (): Response => {
-    return query.data?.data!
+  const getData = (): Response | undefined => {
+    return query.data?.data
   }
 
-  return { getData, getError, query }
+  useEffect(() => {
+    if (query.isError) {
+      const data = getError()
+      setRespData(null)
+      if (data) {
+        setError(data.message)
+        return
+      }
+      setError(query.error?.message ?? '')
+    }
+
+    if (query.isSuccess) {
+      const data = getData()
+      if (data) {
+        setRespData(data)
+        setError('')
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.isFetching, query.isError, query.isSuccess])
+
+  return { getError, query, error, data: respData }
 }
 
 export default useQuery
