@@ -39,7 +39,7 @@ export function useAuth() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.query.status, history])
+  }, [auth.query.status, history, auth.data, auth.error])
 
   return auth
 }

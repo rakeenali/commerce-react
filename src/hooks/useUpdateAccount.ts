@@ -32,7 +32,7 @@ export function useUpdateAccount() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [update.mutation.isSuccess])
+  }, [update.mutation.isSuccess, update.data])
 
   return update
 }

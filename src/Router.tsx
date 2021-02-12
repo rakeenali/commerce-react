@@ -13,16 +13,17 @@ type Props = {
 }
 
 function Router({ children }: Props): JSX.Element {
-  const user = useUser()
+  const loading = useUser((state) => state.loading)
+  const user = useUser((state) => state.user)
 
   const renderRoutes = () => {
-    if (user.loading) {
+    if (loading) {
       return (
         <>
           <h1>Loading</h1>
         </>
       )
-    } else if (user.user) {
+    } else if (user) {
       return (
         <Switch>
           <Route path="/tags">
