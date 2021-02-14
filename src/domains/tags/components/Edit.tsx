@@ -42,7 +42,12 @@ export default function Edit({ isOpen, onUpdate, tag }: Props): JSX.Element {
             colorScheme="light"
             width="100%"
             height="100%"
-            onClick={() => onUpdate(tag)}
+            onClick={() => {
+              onUpdate({
+                ...tag,
+                name,
+              })
+            }}
           >
             Update
           </Button>

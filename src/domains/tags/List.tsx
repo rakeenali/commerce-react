@@ -6,7 +6,7 @@ import Edit from './components/Edit'
 import Add from './components/Add'
 
 import { ITag } from '../../types'
-import { useTags, useCreateTag } from '../../hooks'
+import { useTags, useCreateTag, useUpdateTag } from '../../hooks'
 
 export default function List(): JSX.Element {
   const [tagSelected, setTagSelected] = useState<ITag | null>(null)
@@ -17,9 +17,12 @@ export default function List(): JSX.Element {
   })
   const tags = useTags()
   const { createTag: mutationCreateTag, tag } = useCreateTag()
+  const { updateTag } = useUpdateTag()
 
   const onUpdate = (tag: ITag) => {
     editBtn.onClose()
+    console.log('herer')
+    updateTag({ id: tag.id, name: tag.name })
   }
 
   const onClick = (tag: ITag) => {

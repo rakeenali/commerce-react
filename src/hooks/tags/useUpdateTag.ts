@@ -7,40 +7,47 @@ import { useUser } from '../../stores'
 
 type Variables = {
   name: string
+  id: number
 }
 
-export function useCreateTag() {
+export function useUpdateTag() {
   const token = useUser((state) => state.token)
 
   const queryClient = useQueryClient()
 
   const tag = useMutation<IRespTagDetail, Variables>(
     (data) =>
-      axios.post(`${process.env.REACT_APP_BASE_URL}/tags/create`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      axios.patch(
+        `${process.env.REACT_APP_BASE_URL}/tags/update/${data.id}`,
+        { name: data.name },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ),
     {
       onMutate: async (newTag) => {
         await queryClient.cancelQueries('tags')
 
-        const prevTags = (await queryClient.getQueryData(
+        const tags = (await queryClient.getQueryData(
           'tags'
         )) as AxiosResponse<IRespTagList>
 
-        const newTags = prevTags
-        newTags.data.data[newTags.data.data.length + 1] = {
-          ...newTag,
-          id: newTags.data.data.length + 1,
-        } as ITag
+        tags.data.data = tags.data.data.map((t) => {
+          if (t.id === newTag.id) {
+            return {
+              ...t,
+              name: newTag.name,
+            }
+          }
+          return t
+        })
 
-        queryClient.setQueryData('tags', newTags)
-
-        return { prevTags }
+        return { tags }
       },
       onError: (_err, _newTag, context) => {
-        queryClient.setQueryData('tags', context.prevTags)
+        queryClient.setQueryData('tags', context.tags)
       },
       onSettled: () => {
         queryClient.invalidateQueries('tags')
@@ -48,10 +55,10 @@ export function useCreateTag() {
     }
   )
 
-  const createTag = (variables: Variables): void => {
+  const updateTag = (variables: Variables): void => {
     tag.mutate(variables)
     return
   }
 
-  return { tag, createTag }
+  return { tag, updateTag }
 }
