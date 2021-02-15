@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react'
-import { SimpleGrid, Box, HStack, Text } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
+import { SimpleGrid, Box } from '@chakra-ui/react'
+import { useHistory } from 'react-router-dom'
 
 import Item from './components/Item'
+import Paginator from '../../components/Paginator'
 import { useQuery } from '../../hooks'
 
 function Items() {
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(2)
   const query = useQuery()
+  const history = useHistory()
 
   useEffect(() => {
     const page = query.get('page')
-    console.log('page', page)
-    if (page) {
+    if (!page) {
+      history.push(`/items?page=${currentPage}`)
     }
-  }, [query])
+  }, [currentPage, history, query])
+
+  const updatePage = (pageNumber: number): void => {
+    setCurrentPage(pageNumber)
+    history.push(`/items?page=${pageNumber}`)
+  }
 
   return (
     <Box m="8">
@@ -25,39 +32,11 @@ function Items() {
         <Item />
         <Item />
         <Item />
+        <Item />
+        <Item />
+        <Item />
       </SimpleGrid>
-      <HStack w="100%" h="auto" mt="26px">
-        <Box
-          h="30px"
-          w="30px"
-          ml="auto"
-          as="button"
-          _hover={{
-            transform: `translateX(-.8px)`,
-          }}
-          _active={{
-            transform: `translateX(0px)`,
-          }}
-        >
-          <ChevronLeftIcon w="30px" h="30px" />
-        </Box>
-        <Text fontSize="sm" fontWeight="bolder">
-          1 / 6
-        </Text>
-        <Box
-          h="30px"
-          w="30px"
-          as="button"
-          _hover={{
-            transform: `translateX(.8px)`,
-          }}
-          _active={{
-            transform: `translateX(0px)`,
-          }}
-        >
-          <ChevronRightIcon w="30px" h="30px" />
-        </Box>
-      </HStack>
+      <Paginator count={5} currentPage={currentPage} updatePage={updatePage} />
     </Box>
   )
 }

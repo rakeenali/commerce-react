@@ -6,8 +6,6 @@ import Item from './Item'
 function Routes(): JSX.Element {
   const match = useRouteMatch()
 
-  console.log('match', match)
-
   return (
     <Switch>
       <Route path={`${match.path}/detail`} exact>

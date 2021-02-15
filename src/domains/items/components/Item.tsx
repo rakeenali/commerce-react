@@ -11,8 +11,14 @@ import {
 
 function Item() {
   return (
-    <Center h="560px" w="100%">
-      <Box h="100%" w="86%" borderRadius="20px" bg="shadow.700" boxShadow="2xl">
+    <Center h="auto" w="100%">
+      <Box
+        h="100%"
+        w={{ sm: '100%', md: '90%' }}
+        borderRadius="20px"
+        bg="shadow.700"
+        boxShadow="2xl"
+      >
         <Image
           w="100%"
           h="260px"
@@ -40,7 +46,7 @@ function Item() {
               500
             </Tag>
           </HStack>
-          <Button colorScheme="shadow" w="100%" h="40px" mt="22px">
+          <Button colorScheme="shadow" w="100%" h="40px" mt="18px" mb="12px">
             See Details
           </Button>
         </Container>
