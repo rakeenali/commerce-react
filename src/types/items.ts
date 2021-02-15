@@ -1,6 +1,7 @@
+import { IMeta, okResponse } from './common'
 import { ITag } from './tags'
 
-export interface Item {
+export interface IItem {
   createAt: string
   id: number
   image: string
@@ -9,4 +10,17 @@ export interface Item {
   sku: string
   tags: ITag[]
   updatedAt: string
+}
+
+interface ItemLists {
+  items: IItem[]
+  meta: IMeta
+}
+
+export interface IRespItems extends okResponse {
+  data: ItemLists
+}
+
+export interface IRespItem extends okResponse {
+  data: IItem
 }

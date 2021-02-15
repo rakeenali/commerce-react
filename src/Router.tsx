@@ -5,6 +5,7 @@ import Auth from './domains/auth/routes'
 import Home from './domains/home'
 import Tags from './domains/tags/routes'
 import Account from './domains/account/Account'
+import ItemRouter from './domains/items/routes'
 
 import { useUser } from './stores'
 
@@ -31,6 +32,9 @@ function Router({ children }: Props): JSX.Element {
           </Route>
           <Route path="/accounts" exact>
             <Account />
+          </Route>
+          <Route path="/items">
+            <ItemRouter />
           </Route>
           <Route path="/" exact>
             <Home />

@@ -4,6 +4,12 @@ export enum StatusType {
   BODY_ERROR,
 }
 
+export interface IMeta {
+  count: number
+  pageSize: number
+  page: number
+}
+
 interface IBodyError {
   Field: string
   Message: string

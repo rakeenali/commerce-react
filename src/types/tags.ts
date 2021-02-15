@@ -1,10 +1,10 @@
 import { okResponse } from './common'
-import { Item } from './items'
+import { IItem } from './items'
 
 export interface ITag {
   createdAt: string
   id: number
-  items: Item[] | null
+  items: IItem[] | null
   name: string
   totalItems: number
   updateAt: string
