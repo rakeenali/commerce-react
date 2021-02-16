@@ -29,7 +29,7 @@ function Item() {
           alt="Dan Abramov"
           boxShadow="inner"
         />
-        <Container mt="2px">
+        <Container mt="8px">
           <Text fontSize="3xl" color="white.300" fontWeight="bolder">
             Title title title
           </Text>
@@ -38,7 +38,7 @@ function Item() {
             porro quo, possimus nostrum temporibus ea voluptate maxime! Quia,
             ex?...
           </Text>
-          <HStack mt="10px">
+          <HStack mt="15px">
             <Text fontSize="xl" ml="auto" color="white.300" fontWeight="bolder">
               Price:
             </Text>
@@ -46,7 +46,7 @@ function Item() {
               500
             </Tag>
           </HStack>
-          <Button colorScheme="shadow" w="100%" h="40px" mt="18px" mb="12px">
+          <Button colorScheme="shadow" w="100%" h="40px" mt="22px" mb="16px">
             See Details
           </Button>
         </Container>

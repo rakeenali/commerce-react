@@ -17,6 +17,11 @@ function Provider({ children }: Props): JSX.Element {
       <QueryClientProvider client={client}>
         <Router>{children}</Router>
       </QueryClientProvider>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Chakra>
   )
 }

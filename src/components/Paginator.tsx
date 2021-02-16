@@ -31,7 +31,7 @@ function Paginator({ currentPage, count, updatePage }: Props) {
       <Text fontSize="sm" fontWeight="bolder" color="light.200" ml="auto">
         {currentPage} / {count}
       </Text>
-      {count > currentPage && (
+      {count > currentPage ? (
         <Box
           h="30px"
           w="30px"
@@ -47,6 +47,8 @@ function Paginator({ currentPage, count, updatePage }: Props) {
         >
           <ChevronRightIcon w="30px" h="30px" color="light.400" />
         </Box>
+      ) : (
+        <Box h="30px" w="30px" ml="auto"></Box>
       )}
     </HStack>
   )

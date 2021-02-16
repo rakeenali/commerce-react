@@ -1,26 +1,16 @@
-import { useState, useEffect } from 'react'
 import { SimpleGrid, Box } from '@chakra-ui/react'
-import { useHistory } from 'react-router-dom'
 
 import Item from './components/Item'
 import Paginator from '../../components/Paginator'
-import { useQuery } from '../../hooks'
+import { usePaginator } from '../../hooks'
+
+const count = 5
 
 function Items() {
-  const [currentPage, setCurrentPage] = useState<number>(2)
-  const query = useQuery()
-  const history = useHistory()
-
-  useEffect(() => {
-    const page = query.get('page')
-    if (!page) {
-      history.push(`/items?page=${currentPage}`)
-    }
-  }, [currentPage, history, query])
+  const paginator = usePaginator({ count })
 
   const updatePage = (pageNumber: number): void => {
-    setCurrentPage(pageNumber)
-    history.push(`/items?page=${pageNumber}`)
+    paginator.updatePage(pageNumber)
   }
 
   return (
@@ -36,7 +26,11 @@ function Items() {
         <Item />
         <Item />
       </SimpleGrid>
-      <Paginator count={5} currentPage={currentPage} updatePage={updatePage} />
+      <Paginator
+        count={count}
+        currentPage={paginator.currentPage}
+        updatePage={updatePage}
+      />
     </Box>
   )
 }
