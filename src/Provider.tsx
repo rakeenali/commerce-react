@@ -2,7 +2,6 @@ import React from 'react'
 import { QueryClientProvider, QueryClient } from 'react-query'
 
 import Router from './Router'
-import App from './App'
 import Chakra from './Chakra'
 
 const client = new QueryClient()

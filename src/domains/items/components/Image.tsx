@@ -1,7 +1,12 @@
 import React from 'react'
 import { Image as CImage } from '@chakra-ui/react'
 
-function Image() {
+type Props = {
+  url: string
+  alt: string
+}
+
+function Image({ url, alt }: Props) {
   return (
     <CImage
       w="100%"
@@ -9,8 +14,8 @@ function Image() {
       objectFit="fill"
       borderTopLeftRadius="20px"
       borderBottomLeftRadius="20px"
-      src="https://bit.ly/dan-abramov"
-      alt="Dan Abramov"
+      src={url}
+      alt={alt}
     />
   )
 }

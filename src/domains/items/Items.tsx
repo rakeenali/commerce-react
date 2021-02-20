@@ -1,35 +1,47 @@
+import { useEffect } from 'react'
 import { SimpleGrid, Box } from '@chakra-ui/react'
 
 import Item from './components/Item'
 import Paginator from '../../components/Paginator'
-import { usePaginator } from '../../hooks'
-
-const count = 5
+import { usePaginator, useItems } from '../../hooks'
 
 function Items() {
-  const paginator = usePaginator({ count })
+  const { query: items, count, setCurrentPage } = useItems({
+    page: 1,
+    pageSize: 9,
+  })
+  const { currentPage, updatePage: updatePagPage } = usePaginator({ count })
 
   const updatePage = (pageNumber: number): void => {
-    paginator.updatePage(pageNumber)
+    updatePagPage(pageNumber)
+  }
+
+  useEffect(() => {
+    setCurrentPage(currentPage)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
+
+  // console.log('items', items.query.data?.data.data.meta)
+
+  const renderItems = (): JSX.Element[] | JSX.Element => {
+    if (items.data) {
+      return items.data.data.items.map((item) => (
+        <Item {...{ item }} key={`Items-${item.id}`} />
+      ))
+    }
+    return <></>
   }
 
   return (
     <Box m="8">
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={12}>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        {renderItems()}
       </SimpleGrid>
       <Paginator
         count={count}
-        currentPage={paginator.currentPage}
+        currentPage={currentPage}
         updatePage={updatePage}
+        disabled={items.query.isPreviousData}
       />
     </Box>
   )

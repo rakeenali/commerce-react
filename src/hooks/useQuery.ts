@@ -48,6 +48,7 @@ function useQuery<Response>(
       const data = getError()
       setRespData(null)
       if (data) {
+        console.log('error', data.message)
         setError(data.message)
         return
       }
@@ -62,7 +63,7 @@ function useQuery<Response>(
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.isFetching, query.isError, query.isSuccess])
+  }, [query.isFetching, query.isError, query.isSuccess, query.isLoading])
 
   return { getError, query, error, data: respData }
 }

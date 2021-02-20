@@ -6,11 +6,18 @@ type Props = {
   count: number
 
   updatePage(page: number): void
+
+  disabled?: boolean
 }
 
-function Paginator({ currentPage, count, updatePage }: Props) {
+function Paginator({
+  currentPage,
+  count,
+  updatePage,
+  disabled = false,
+}: Props) {
   return (
-    <HStack w="100%" h="auto" mt="26px">
+    <HStack w="100%" h="auto" mt="16">
       {currentPage > 1 && (
         <Box
           h="30px"
@@ -24,6 +31,7 @@ function Paginator({ currentPage, count, updatePage }: Props) {
             transform: `translateX(0px)`,
           }}
           onClick={() => updatePage(currentPage - 1)}
+          disabled={disabled}
         >
           <ChevronLeftIcon w="30px" h="30px" color="light.400" />
         </Box>
@@ -44,6 +52,7 @@ function Paginator({ currentPage, count, updatePage }: Props) {
             transform: `translateX(0px)`,
           }}
           onClick={() => updatePage(currentPage + 1)}
+          disabled={disabled}
         >
           <ChevronRightIcon w="30px" h="30px" color="light.400" />
         </Box>

@@ -61,6 +61,11 @@ function Navbar() {
                 Tags
               </Button>
             </Box>
+            <Box>
+              <Button variant="ghost" colorScheme="white" as={Link} to="/items">
+                Items
+              </Button>
+            </Box>
             {renderMenu()}
           </Center>
         </>

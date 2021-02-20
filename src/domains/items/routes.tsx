@@ -8,7 +8,7 @@ function Routes(): JSX.Element {
 
   return (
     <Switch>
-      <Route path={`${match.path}/detail`} exact>
+      <Route path={`${match.path}/:id`} exact>
         <Item />
       </Route>
       <Route path={`${match.path}`} exact>

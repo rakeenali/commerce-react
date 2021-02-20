@@ -8,8 +8,21 @@ import {
   Text,
   Container,
 } from '@chakra-ui/react'
+import { useHistory } from 'react-router-dom'
 
-function Item() {
+import { IItem } from '../../../types'
+
+type Props = {
+  item: IItem
+}
+
+function Item({ item }: Props) {
+  const { push } = useHistory()
+
+  const onClick = (): void => {
+    push(`/items/${item.id}`)
+  }
+
   return (
     <Center h="auto" w="100%">
       <Box
@@ -25,13 +38,13 @@ function Item() {
           borderTopLeftRadius="20px"
           borderTopRightRadius="20px"
           objectFit="cover"
-          src="https://bit.ly/dan-abramov"
+          src={item.image}
           alt="Dan Abramov"
           boxShadow="inner"
         />
         <Container mt="8px">
           <Text fontSize="3xl" color="white.300" fontWeight="bolder">
-            Title title title
+            {item.name}
           </Text>
           <Text color="white.100" fontSize="lg">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed ad
@@ -43,10 +56,17 @@ function Item() {
               Price:
             </Text>
             <Tag size="md" ml="3px" variant="solid" colorScheme="light">
-              500
+              {item.price}
             </Tag>
           </HStack>
-          <Button colorScheme="shadow" w="100%" h="40px" mt="22px" mb="16px">
+          <Button
+            colorScheme="shadow"
+            w="100%"
+            h="40px"
+            mt="22px"
+            mb="16px"
+            onClick={onClick}
+          >
             See Details
           </Button>
         </Container>
