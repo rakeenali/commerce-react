@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import { useQueryClient } from 'react-query'
 
 import useMutation from '../useMutation'
-import { IRespTagDetail, IRespTagList, ITag } from '../../types'
+import { IRespTagDetail, IRespTagList } from '../../types'
 import { useUser } from '../../stores'
 
 type Variables = {

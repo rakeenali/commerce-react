@@ -33,6 +33,7 @@ function App(): JSX.Element {
     if (toast.show) {
       makeToast()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toast.show])
 
   return (
