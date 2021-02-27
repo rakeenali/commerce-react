@@ -1,6 +1,6 @@
-import axios from 'axios'
 import { useMemo, useState } from 'react'
 
+import { get } from '../api'
 import useQuery from '../useQuery'
 import { IRespItems } from '../../types'
 import { useUser } from '../../stores'
@@ -18,12 +18,9 @@ export function useItems({ page, pageSize }: Params) {
   const query = useQuery<IRespItems>(
     ['items', currentPage],
     () =>
-      axios.get(
-        `${process.env.REACT_APP_BASE_URL}/items/list?page_size=${pageSize}&page=${currentPage}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      ),
+      get(`items/list?page_size=${pageSize}&page=${currentPage}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
     { keepPreviousData: true }
   )
 

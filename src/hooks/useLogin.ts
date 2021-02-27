@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { post } from './api'
 
 import useMutation from './useMutation'
 import { useUser, useToast } from '../stores'
@@ -18,7 +18,7 @@ export function useLogin() {
   const { showToast } = useToast()
 
   const login = useMutation<IRespLoginUser, Variables>((data) =>
-    axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, data)
+    post('users/login', data)
   )
 
   useEffect(() => {

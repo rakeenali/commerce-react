@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import { useQueryClient } from 'react-query'
 
+import { patch } from '../api'
 import useMutation from '../useMutation'
 import { IRespTagDetail, IRespTagList } from '../../types'
 import { useUser } from '../../stores'
@@ -17,8 +18,8 @@ export function useUpdateTag() {
 
   const tag = useMutation<IRespTagDetail, Variables>(
     (data) =>
-      axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/tags/update/${data.id}`,
+      patch(
+        `tags/update/${data.id}`,
         { name: data.name },
         {
           headers: {

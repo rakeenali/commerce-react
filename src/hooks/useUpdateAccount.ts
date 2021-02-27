@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import axios from 'axios'
+import { post } from './api'
 
 import useMutation from './useMutation'
 import { IRespAccount } from '../types'
@@ -16,7 +16,7 @@ export function useUpdateAccount() {
   const { setAccount, token } = useUser()
 
   const update = useMutation<IRespAccount, Variables>((data) =>
-    axios.post(`${process.env.REACT_APP_BASE_URL}/users/account-update`, data, {
+    post('users/account-update', data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

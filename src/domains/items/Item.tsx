@@ -30,7 +30,7 @@ function Item() {
           borderRadius="20px"
         >
           <Box w="100%" h="450px">
-            <Image url={data.image} alt={data.name} />
+            <Image url={data.images[0].url} alt={data.name} />
           </Box>
           <Box w="100%" h="450px">
             <Description item={data} />

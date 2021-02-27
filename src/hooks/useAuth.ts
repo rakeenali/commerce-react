@@ -6,6 +6,8 @@ import useQuery from './useQuery'
 import { IRespAuthenticate } from '../types'
 import { useUser } from '../stores'
 
+import { get } from './api/get'
+
 export function useAuth() {
   const history = useHistory()
   const setUser = useUser((state) => state.setUser)
@@ -17,7 +19,7 @@ export function useAuth() {
   const auth = useQuery<IRespAuthenticate>(
     ['auth'],
     () =>
-      axios.get(`${process.env.REACT_APP_BASE_URL}/users/authenticate`, {
+      get('users/authenticate', {
         headers: { Authorization: `Bearer ${token}` },
       }),
     {

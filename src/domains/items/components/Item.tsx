@@ -38,8 +38,8 @@ function Item({ item }: Props) {
           borderTopLeftRadius="20px"
           borderTopRightRadius="20px"
           objectFit="cover"
-          src={item.image}
-          alt="Dan Abramov"
+          src={item.images[0].url}
+          alt={item.name}
           boxShadow="inner"
         />
         <Container mt="8px">

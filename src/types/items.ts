@@ -1,10 +1,11 @@
 import { IMeta, okResponse } from './common'
 import { ITag } from './tags'
+import { IMedia } from './media'
 
 export interface IItem {
   createAt: string
   id: number
-  image: string
+  images: IMedia[]
   name: string
   price: number
   sku: string

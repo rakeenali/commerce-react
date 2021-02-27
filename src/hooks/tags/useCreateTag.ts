@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import { useQueryClient } from 'react-query'
+import { post } from '../api'
 
 import useMutation from '../useMutation'
 import { IRespTagDetail, IRespTagList, ITag } from '../../types'
@@ -16,7 +17,7 @@ export function useCreateTag() {
 
   const tag = useMutation<IRespTagDetail, Variables>(
     (data) =>
-      axios.post(`${process.env.REACT_APP_BASE_URL}/tags/create`, data, {
+      post('tags/create', data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

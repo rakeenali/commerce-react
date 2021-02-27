@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { post } from './api'
 
 import useMutation from './useMutation'
 import { IRespCreateUser } from '../types'
@@ -19,7 +19,7 @@ export function useSignup() {
   const { showToast } = useToast()
 
   const register = useMutation<IRespCreateUser, Variables>((data) =>
-    axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`, data)
+    post('users/register', data)
   )
 
   useEffect(() => {
