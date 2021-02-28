@@ -7,6 +7,7 @@ export interface IItem {
   id: number
   images: IMedia[]
   name: string
+  description: string
   price: number
   sku: string
   tags: ITag[]

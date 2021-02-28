@@ -1,10 +1,10 @@
 import { Box, Grid, Text } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 
-import Image from './components/Image'
 import Description from './components/Description'
 import Action from './components/Action'
 import Detail from './components/Detail'
+import Carousel from './components/Carousel'
 import FooterItems from './components/FooterItems'
 import Loader from '../../components/Loader'
 import Error from '../../components/Error'
@@ -30,7 +30,7 @@ function Item() {
           borderRadius="20px"
         >
           <Box w="100%" h="450px">
-            <Image url={data.images[0].url} alt={data.name} />
+            <Carousel item={data} />
           </Box>
           <Box w="100%" h="450px">
             <Description item={data} />
@@ -45,7 +45,7 @@ function Item() {
           borderRadius="20px"
           boxShadow="dark-lg"
         >
-          <Detail description="" />
+          <Detail description={data.description} />
         </Box>
         <Box w="auto" h="auto" mt="12">
           <Text fontSize="xl" fontWeight="bolder" textAlign="center">

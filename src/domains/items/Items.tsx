@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { SimpleGrid, Box } from '@chakra-ui/react'
+import { SimpleGrid, Box, Button } from '@chakra-ui/react'
 
 import Item from './components/Item'
 import Paginator from '../../components/Paginator'
@@ -34,6 +34,16 @@ function Items() {
 
   return (
     <Box m="8">
+      <Button
+        w="180px"
+        h="44px"
+        mb="10px"
+        ml="20px"
+        colorScheme="shadow"
+        variant="outline"
+      >
+        Create Item
+      </Button>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={12}>
         {renderItems()}
       </SimpleGrid>

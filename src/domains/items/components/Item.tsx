@@ -44,12 +44,10 @@ function Item({ item }: Props) {
         />
         <Container mt="8px">
           <Text fontSize="3xl" color="white.300" fontWeight="bolder">
-            {item.name}
+            {item.name.substr(0, 20)}
           </Text>
           <Text color="white.100" fontSize="lg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed ad
-            porro quo, possimus nostrum temporibus ea voluptate maxime! Quia,
-            ex?...
+            {item.description.substr(0, 180)}...
           </Text>
           <HStack mt="15px">
             <Text fontSize="xl" ml="auto" color="white.300" fontWeight="bolder">
