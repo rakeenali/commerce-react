@@ -1,27 +1,82 @@
-import { Box, Button, Icon } from '@chakra-ui/react'
-import { AddIcon, CloseIcon } from '@chakra-ui/icons'
+import { useState } from 'react'
+import { Box, Text, Button } from '@chakra-ui/react'
 import { Formik, Form as FormikForm, FieldArray } from 'formik'
 
+import TagsCreate from './components/Tags.Create'
+import ImagesForm from './components/Images.Form'
 import Input from '../../components/Input'
 import Form from '../../components/Form'
-import { useTags } from '../../hooks'
-import TagsCreate from './components/Tags.Create'
+
+import { useTags, useCreateItem } from '../../hooks'
+
+type IForm = {
+  name: string
+  sku: string
+  price: string
+  description: string
+  tags: string[]
+  images: string[]
+}
 
 function Create() {
   const { data: tags } = useTags()
+  const [title, setTitle] = useState<string>('Create an Item')
+  const createItem = useCreateItem()
 
-  const onSubmit = (values) => {
-    console.log(JSON.stringify(values))
+  const onSubmit = (values: IForm) => {
+    const isValid = isFormValid(values)
+    if (!isValid) {
+      setTitle('Invalid form')
+      return
+    }
+
+    setTitle('Creating an item')
+    createItem.create({
+      ...values,
+      tags: values.tags.map((t) => ({ name: t })),
+      price: Number(values.price),
+    })
   }
 
-  const initialValues = {
-    images: [{ url: '' }],
+  const initialValues: IForm = {
+    images: [''],
     tags: [],
+    name: '',
+    sku: '',
+    price: '',
+    description: '',
+  }
+
+  const onChange = (value, name, setValues, values) => {
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+
+  const isFormValid = (values: IForm) => {
+    if (
+      values.description === '' ||
+      values.name === '' ||
+      values.price === '' ||
+      values.sku === '' ||
+      values.images.length < 2 ||
+      values.images[0] === '' ||
+      values.images[1] === '' ||
+      values.tags.length === 0
+    ) {
+      return false
+    }
+
+    return true
   }
 
   return (
     <Box m="8" bg="shadow.700" w="70%" mx="auto">
       <Form onSubmit={() => {}} as="div">
+        <Text fontWeight="bold" fontSize="3xl" mt="10px" color="shadow.800">
+          {title}
+        </Text>
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
           {({ values, setValues }) => (
             <FormikForm
@@ -36,63 +91,30 @@ function Create() {
               <Input
                 heading="Name"
                 name="name"
-                onChange={() => {}}
+                onChange={(e) =>
+                  onChange(e.target.value, 'name', setValues, values)
+                }
                 type="text"
               />
-              <Input heading="SKU" name="sku" onChange={() => {}} type="text" />
+              <Input
+                heading="SKU"
+                name="sku"
+                onChange={(e) =>
+                  onChange(e.target.value, 'sku', setValues, values)
+                }
+                type="text"
+              />
               <Input
                 heading="Price"
                 name="price"
-                onChange={() => {}}
-                type="text"
+                onChange={(e) =>
+                  onChange(e.target.value, 'price', setValues, values)
+                }
+                type="number"
               />
               <FieldArray name="images">
                 {({ insert, remove, push }) => (
-                  <Box w="100%" h="100%" ml="50px">
-                    <Box w="100%" h="100%">
-                      <Button
-                        leftIcon={<AddIcon />}
-                        colorScheme="light"
-                        size="sm"
-                        onClick={() => {
-                          push({ url: '' })
-                        }}
-                        disabled={values.images.length > 4}
-                      >
-                        Add Images
-                      </Button>
-                    </Box>
-                    {values.images.length > 0 &&
-                      values.images.map((image, index) => (
-                        <Box position="relative">
-                          <Input
-                            heading={`Image ${index + 1}`}
-                            name={`images.${index}.url`}
-                            onChange={() => {}}
-                            type="text"
-                          />
-                          <Box
-                            position="absolute"
-                            w="50px"
-                            h="40px"
-                            bottom="2px"
-                            right="0px"
-                            as="button"
-                            onClick={() => {
-                              remove(index)
-                            }}
-                            disabled={values.images.length === 1}
-                          >
-                            <Icon
-                              as={CloseIcon}
-                              w="16px"
-                              h="16px"
-                              color="dark.600"
-                            />
-                          </Box>
-                        </Box>
-                      ))}
-                  </Box>
+                  <ImagesForm {...{ push, remove, values, setValues }} />
                 )}
               </FieldArray>
               {tags && (
@@ -101,14 +123,23 @@ function Create() {
               <Input
                 heading="Description"
                 name="description"
-                onChange={() => {}}
+                onChange={(e) =>
+                  onChange(e.target.value, 'description', setValues, values)
+                }
                 type="text"
               />
-              <button type="submit">Submit</button>
+              <Button
+                type="submit"
+                colorScheme="shadow"
+                w="94%"
+                mt="20px"
+                disabled={createItem.item.mutation.isLoading}
+              >
+                Submit
+              </Button>
             </FormikForm>
           )}
         </Formik>
-        <br />
         <br />
       </Form>
     </Box>

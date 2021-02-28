@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 
 import useQuery from './useQuery'
@@ -11,6 +10,7 @@ import { get } from './api/get'
 export function useAuth() {
   const history = useHistory()
   const setUser = useUser((state) => state.setUser)
+  const setAdmin = useUser((state) => state.setAdmin)
   const setToken = useUser((state) => state.setToken)
   const setLoading = useUser((state) => state.setLoading)
 
@@ -36,6 +36,7 @@ export function useAuth() {
     } else if (status === 'success') {
       if (auth.data) {
         setUser(auth.data.data)
+        setAdmin(auth.data.data)
         setToken(token!)
         setLoading(false)
       }

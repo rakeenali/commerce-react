@@ -7,7 +7,7 @@ type Props = {
 }
 
 function Carousel({ item }: Props): JSX.Element {
-  const [selectedImage, setSelectedImage] = useState(item.images[2])
+  const [selectedImage, setSelectedImage] = useState(item.images[0])
 
   const renderImage = (): JSX.Element => {
     return (
@@ -24,13 +24,11 @@ function Carousel({ item }: Props): JSX.Element {
   }
 
   const renderFooter = (): JSX.Element[] => {
-    const width = Math.floor(100 / item.images.length) - 3
+    const width = Math.min(Math.floor(100 / item.images.length) - 3, 65)
     return item.images.map((image) => {
       return (
         <Image
-          mt="auto"
-          mb="auto"
-          mx="8px"
+          m="auto"
           key={image.id}
           w={`${width}%`}
           boxShadow={image.id === selectedImage.id ? 'outline' : 'inner'}
@@ -63,6 +61,7 @@ function Carousel({ item }: Props): JSX.Element {
         left="0px"
         d="flex"
         borderBottomLeftRadius="20px"
+        p="8px"
       >
         {renderFooter()}
       </Box>
